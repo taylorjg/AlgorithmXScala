@@ -1,7 +1,7 @@
 ## Description
 
-This is a port of a [Haskell implementation](https://github.com/jaapterwoerds/algorithmx)
-of [Knuth's Algorithm X (Wikipedia)](http://en.wikipedia.org/wiki/Algorithm_X "Knuth's Algorithm X (Wikipedia)") to Scala.
+This is a port of this [Haskell implementation](https://github.com/jaapterwoerds/algorithmx)
+of [Knuth's Algorithm X](http://en.wikipedia.org/wiki/Algorithm_X "Knuth's Algorithm X (Wikipedia)") to Scala.
 
 ## TODO
 
