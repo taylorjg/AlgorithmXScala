@@ -20,7 +20,7 @@ object ExactCover {
 
   private def cover[Col, Row](m: Matrix[Col, Row], r: Row): Matrix[Col, Row] = {
     val columnsToDelete = m.getCols(r)
-    val rowsToDelete = (m.getCols(r) flatMap m.getRows).distinct
+    val rowsToDelete = (columnsToDelete flatMap m.getRows).distinct
     m
       .deleteRows(rowsToDelete)
       .deleteCols(columnsToDelete)
