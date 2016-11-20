@@ -1,8 +1,8 @@
 package algorithmx
 
-abstract class Matrix[Col, Row](implicit ev: Ordering[Col]) {
+class Matrix[Col, Row](m: Seq[(Col, Seq[Row])])(implicit ev: Ordering[Col]) {
 
-  val m: Seq[(Col, Seq[Row])]
+  def isEmpty: Boolean = m.isEmpty
 
   def getColumns: Seq[Col] = m map (_._1)
 
@@ -18,22 +18,15 @@ abstract class Matrix[Col, Row](implicit ev: Ordering[Col]) {
       if rs contains row
     } yield c
 
-  def deleteCols(columns: Seq[Col]): Matrix[Col, Row] = {
-    val m2 = for {
-      t2@(c, rs) <- m
-      if !(columns contains c)
-    } yield t2
-    new Matrix[Col, Row] {
-      val m = m2
-    }
-  }
+  def deleteCols(columns: Seq[Col]): Matrix[Col, Row] =
+    new Matrix[Col, Row](
+      for {
+        t2@(c, rs) <- m
+        if !(columns contains c)
+      } yield t2)
 
-  def deleteRows(rows: Seq[Row]): Matrix[Col, Row] = {
-    val m2 = m map { case (c, rs) => (c, rs diff rows) }
-    new Matrix[Col, Row] {
-      val m = m2
-    }
-  }
+  def deleteRows(rows: Seq[Row]): Matrix[Col, Row] =
+    new Matrix[Col, Row](m map { case (c, rs) => (c, rs diff rows) })
 
   def occurrences(columnIndex: Col): Int = {
     val columns = m filter { case (c, _) => c == columnIndex }
