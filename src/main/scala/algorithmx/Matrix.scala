@@ -9,13 +9,13 @@ object Matrix {
   def getColumns(m: Matrix): Seq[Col] =
     m map (_._1)
 
-  def getRows(m: Matrix, column: Col): Seq[Row] =
+  def getRows(m: Matrix)(column: Col): Seq[Row] =
     (for {
       (c, rs) <- m
       if c == column
     } yield rs).head
 
-  def getCols(m: Matrix, row: Row): Seq[Col] =
+  def getCols(m: Matrix)(row: Row): Seq[Col] =
     for {
       (c, rs) <- m
       if rs contains row
@@ -30,7 +30,7 @@ object Matrix {
   def deleteRows(rows: Seq[Row], m: Matrix): Matrix =
     m map { case (c, rs) => (c, rs diff rows) }
 
-  def occurences(m: Matrix, columnIndex: Col): Int = {
+  def occurrences(m: Matrix, columnIndex: Col): Int = {
     val columns = m filter { case (c, _) => c == columnIndex }
     val column = columns.head._2
     column.length
@@ -46,10 +46,8 @@ object Matrix {
 
   private def least(t1: (Col, Int), t2: (Col, Int)): Boolean =
     (t1, t2) match {
-      case ((_, a), (_, b)) if a < b => true
-      case ((_, a), (_, b)) if a > b => false
-      case ((x, a), (y, b)) if a == b && x < y => true
-      case ((x, a), (y, b)) if a == b && x > y => false
+      case ((_, len1), (_, len2)) if len1 < len2 => true
+      case ((col1, len1), (col2, len2)) if len1 == len2 && col1 < col2 => true
       case _ => false
     }
 }
