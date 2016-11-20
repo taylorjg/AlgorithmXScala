@@ -19,10 +19,10 @@ object ExactCover {
   private def selectColumn[Col, Row](m: Matrix[Col, Row]): Col = m.getColumnsSorted.head
 
   private def cover[Col, Row](m: Matrix[Col, Row], r: Row): Matrix[Col, Row] = {
-    def columnsToDelete = m.getCols _
-    def rowsToDelete(row: Row) = (m.getCols(row) flatMap m.getRows).distinct
+    val columnsToDelete = m.getCols(r)
+    val rowsToDelete = (m.getCols(r) flatMap m.getRows).distinct
     m
-      .deleteRows(rowsToDelete(r))
-      .deleteCols(columnsToDelete(r))
+      .deleteRows(rowsToDelete)
+      .deleteCols(columnsToDelete)
   }
 }
