@@ -7,7 +7,9 @@ of [Knuth's Algorithm X](http://en.wikipedia.org/wiki/Algorithm_X "Knuth's Algor
 
 * Add unit tests
 * ~~Add Row/Col type parameters to Matrix~~
-* Return a collection of solutions (currently, all solutions are returned flattened)
+* ~~Return a collection of solutions (currently, all solutions are returned flattened)~~
+    * _however, even when adding `.take(1)`, it still finds all solutions_
+    * TODO: make it lazier! but how ?
 * Use it to solve Sudoku puzzles
 
 ## Links

@@ -2,18 +2,25 @@ package algorithmx
 
 object ExactCover {
 
-  def solve[Col, Row](m: Matrix[Col, Row]): Seq[Row] = solveHelper(m, Seq())
+  def solve[Col, Row](m: Matrix[Col, Row])(implicit ev: Ordering[Row]): Seq[Seq[Row]] =
+    solveRecursively(m, Nil, Nil)(ev)
 
-  private def solveHelper[Col, Row](m: Matrix[Col, Row], solution: Seq[Row]): Seq[Row] =
-    if (m.isEmpty) solution
+  private def solveRecursively[Col, Row](m: Matrix[Col, Row],
+                                         solutions: Seq[Seq[Row]],
+                                         partialSolution: Seq[Row])
+                                        (implicit ev: Ordering[Row]): Seq[Seq[Row]] =
+    if (m.isEmpty) {
+      val solution = partialSolution.sorted(ev)
+      solutions :+ solution
+    }
     else for {
       c <- Seq(selectColumn(m))
       numOccurrences <- Seq(m.occurrences(c))
       if numOccurrences > 0
       r <- m.getRows(c)
-      solution2 = solution ++ Seq(r)
+      partialSolution2 = partialSolution ++ Seq(r)
       m2 = cover(m, r)
-      s <- solveHelper(m2, solution2)
+      s <- solveRecursively(m2, solutions, partialSolution2)
     } yield s
 
   private def selectColumn[Col, Row](m: Matrix[Col, Row]): Col = m.getColumnsSorted.head
