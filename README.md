@@ -6,7 +6,7 @@ of [Knuth's Algorithm X](http://en.wikipedia.org/wiki/Algorithm_X "Knuth's Algor
 ## TODO
 
 * Add unit tests
-* Add Row/Col type parameters to Matrix
+* ~~Add Row/Col type parameters to Matrix~~
 * Return a collection of solutions (currently, all solutions are returned flattened)
 * Use it to solve Sudoku puzzles
 
